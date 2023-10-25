@@ -1,18 +1,21 @@
 # pilot-api
+
 The backend service for pilot project.
 
 #Install dependencies
 
- - npm i or npm install
+- npm i or npm install
 
-#Install Nodemon 
+#Install Nodemon
 
- - npm i -g nodemon
+- npm i -g nodemon
 
-#Run the service 
+#Run the service
 
- - npm run start
+- npm run start
 
-#Run the service in watch mode to actively reflect and reload after changes 
+#Run the service in watch mode to actively reflect and reload after changes
 
- - npm run dev
+- npm run dev
+
+#http://localhost:3000 to watch graphQL Apollo server playground
