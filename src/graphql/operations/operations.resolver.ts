@@ -3,5 +3,5 @@ export const operationQueries = {
 };
 
 export const operationMutations = {
-    updateStatus: () => "Status updated"
+  updateStatus: () => "Status updated",
 };

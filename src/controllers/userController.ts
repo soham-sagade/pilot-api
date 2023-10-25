@@ -4,7 +4,13 @@ interface IUserController {
 }
 
 export class UserController implements IUserController {
-  login(data: any) {}
+  login(data: any) {
+    try {
+      //get the user data
+    } catch (error) {
+      
+    }
+  }
 
   signUp(data: any) {}
 }
