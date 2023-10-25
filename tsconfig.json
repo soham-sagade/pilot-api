@@ -1,12 +1,17 @@
 {
-    "compilerOptions": {
-      "esModuleInterop": true
-    },
-    "ts-node": {
-        "esm": true,
-        "experimentalSpecifierResolution": "node"
-      },
-      "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "lib": ["es2020"],
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "types": ["node"]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "exclude": ["node_modules"]
 }
