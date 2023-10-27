@@ -6,8 +6,11 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./src/graphql";
+import { userRouter } from "./src/routes/userRouter";
+import { connectDatabase } from "./doConnection";
+import "dotenv/config";
 
-const port: number | string = process.env.PORT || 8000;
+const port: number | string = process.env.PORT || 3000;
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -21,31 +24,11 @@ const server: ApolloServer = new ApolloServer({
 
 await server.start();
 
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
+connectDatabase();
 
-import { DataSource } from "typeorm";
-import { user_info } from "./src/controllers/User";
-
-const AppDataSource = new DataSource({
-  type: "postgres",
-  url: "postgres://ufyywhks:sGWHqNGMuRm1naH5rqMhpBRqJgywAr93@flora.db.elephantsql.com/ufyywhks",
-  port: 5432,
-});
-
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Data Source has been initialized!");
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization", err);
-  });
-
-const userRepository = AppDataSource.getRepository(user_info);
-
-// const user = new user_info();
-
-const allUsers = await userRepository.find({});
-console.log(allUsers);
+app.use(cors(), bodyParser.json());
+app.use(userRouter);
+app.use(expressMiddleware(server));
 
 httpServer.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:${port}`)
