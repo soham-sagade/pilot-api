@@ -1,4 +1,4 @@
-import { user_info } from "../models/userModel";
+import { Userdata } from "../models/userModel";
 import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../../doConnection";
 import jwt from "jsonwebtoken";
@@ -17,7 +17,7 @@ export class UserController implements IUserController {
           error: "Please enter all required fields",
         });
 
-      const user = await AppDataSource.manager.findOneBy(user_info, {
+      const user = await AppDataSource.manager.findOneBy(Userdata, {
         userName: username,
       });
 

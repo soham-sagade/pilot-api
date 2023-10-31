@@ -1,5 +1,10 @@
 import { DataSource } from "typeorm";
-import { user_info } from "./src/models/userModel";
+import { Userdata } from "./src/models/userModel";
+import { Device } from "./src/models/deviceModel";
+import { Joblogs } from "./src/models/jobLogsModel";
+import { Job } from "./src/models/jobModel";
+import { Material } from "./src/models/materialModel";
+import { Network } from "./src/models/networkModel";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -8,7 +13,7 @@ export const AppDataSource = new DataSource({
     process.env.POSTGRES_CONNECTION_URL ||
     "postgres://ufyywhks:sGWHqNGMuRm1naH5rqMhpBRqJgywAr93@flora.db.elephantsql.com/ufyywhks",
   port: 5432,
-  entities: [user_info],
+  entities: [Userdata, Device, Joblogs, Job, Material, Network],
 });
 
 export function connectDatabase() {

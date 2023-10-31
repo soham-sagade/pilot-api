@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class network {
+export class Network {
   @PrimaryGeneratedColumn()
   networkId: number;
 
