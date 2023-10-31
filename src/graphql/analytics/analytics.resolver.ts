@@ -3,5 +3,5 @@ export const analyticsQueries = {
 };
 
 export const analyticsMutations = {
-    updateAnalytics: () => "Analytics updated"
+  updateAnalytics: () => "Analytics updated",
 };

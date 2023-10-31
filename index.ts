@@ -6,14 +6,17 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./src/graphql";
+import { userRouter } from "./src/routes/userRouter";
+import { connectDatabase } from "./doConnection";
+import "dotenv/config";
 
-const port = process.env.PORT || 3000;
+const port: number | string = process.env.PORT || 3000;
 
 const app = express();
 const httpServer = http.createServer(app);
 
 // Set up Apollo Server
-const server = new ApolloServer({
+const server: ApolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -21,7 +24,11 @@ const server = new ApolloServer({
 
 await server.start();
 
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
+connectDatabase();
+
+app.use(cors(), bodyParser.json());
+app.use(userRouter);
+app.use(expressMiddleware(server));
 
 httpServer.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:${port}`)

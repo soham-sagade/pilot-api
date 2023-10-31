@@ -7,7 +7,9 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
-    "types": ["node"]
+    "types": ["node"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "ts-node": {
     "esm": true,
