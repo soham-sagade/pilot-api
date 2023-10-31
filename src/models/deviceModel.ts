@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation } from "typeorm";
+import { Userdata } from "./userModel";
+import { Network } from "./networkModel";
 
 @Entity()
 export class Device {
@@ -41,4 +43,6 @@ export class Device {
   @Column()
   printingTime: number;
 
+  @ManyToOne(() => Network, (network) => network.devices)
+  network: Relation<Network>;
 }

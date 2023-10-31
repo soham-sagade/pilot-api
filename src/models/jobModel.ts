@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from "typeorm";
+import { Userdata } from "./userModel";
+import { Joblogs } from "./jobLogsModel";
 
 @Entity()
 export class Job {
@@ -23,4 +32,9 @@ export class Job {
   @Column()
   filePath: string;
 
+  @ManyToOne(() => Userdata, (user) => user.jobs)
+  user: Relation<Userdata>;
+
+  @OneToMany(() => Joblogs, (joblog) => joblog.job)
+  joblogs: Relation<Joblogs>[];
 }

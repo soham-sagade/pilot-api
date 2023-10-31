@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation } from "typeorm";
+import { Job } from "./jobModel";
 
 @Entity()
 export class Joblogs {
@@ -20,4 +21,6 @@ export class Joblogs {
   @Column()
   incidentType: string;
 
+  @ManyToOne(() => Job, (job) => job.joblogs)
+  job: Relation<Job>;
 }
