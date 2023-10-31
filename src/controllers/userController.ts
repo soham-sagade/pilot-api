@@ -18,7 +18,7 @@ export class UserController implements IUserController {
         });
 
       const user = await AppDataSource.manager.findOneBy(user_info, {
-        user_name: username,
+        userName: username,
       });
 
       if (!user)

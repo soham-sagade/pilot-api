@@ -1,22 +1,26 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class user_info {
+export class job {
   @PrimaryGeneratedColumn()
+  jobId: number;
+
+  @Column()
+  deviceId: number;
+
+  @Column()
   userId: number;
 
   @Column()
-  userName: string;
+  startDate: Date;
 
   @Column()
-  userPassword: string;
+  endDate: Date | null;
 
   @Column()
-  role: string;
+  status: string;
 
   @Column()
-  userEmail: string;
+  filePath: string;
 
-  @Column()
-  createdAt: string;
 }

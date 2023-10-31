@@ -1,22 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class user_info {
+export class jobLogs {
   @PrimaryGeneratedColumn()
+  logId: number;
+
+  @Column()
+  jobId: number;
+
+  @Column()
   userId: number;
 
   @Column()
-  userName: string;
+  startDate: Date;
 
   @Column()
-  userPassword: string;
+  endDate: Date | null;
 
   @Column()
-  role: string;
+  incidentType: string;
 
-  @Column()
-  userEmail: string;
-
-  @Column()
-  createdAt: string;
 }
