@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Relation, OneToMany } from "typeorm";
+import { Device } from "./deviceModel";
 
 @Entity()
 export class Material {
@@ -7,5 +8,8 @@ export class Material {
 
   @Column()
   materialType: string;
+
+  @OneToMany(() => Device, (devices) => devices.material)
+  devices: Relation<Device>[];
 
 }
