@@ -1,15 +1,15 @@
 export type Device = {
-  deviceId: number;
-  materialId: number;
-  networkId: number;
+  device_id: number;
+  material_id: number;
+  network_id: number;
   name: string;
-  serialNumber: string;
+  serial_number: string;
   uuid: string;
   status: string;
-  createdAt: Date;
+  created_at: Date;
   temperature: number;
   manufacturer: string;
-  availableMaterial: string;
+  available_material: number;
   humidity: number;
-  printingTime: number;
+  printing_time: number;
 };

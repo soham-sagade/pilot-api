@@ -16,8 +16,8 @@ export class Network {
   @ManyToOne(() => Userdata, (user) => user.networks)
   user: Relation<Userdata>;
 
-  @OneToMany(() => Device, (devices) => devices.network)
-  devices: Relation<Device>[];
+  // @OneToMany(() => Device, (devices) => devices.network)
+  // devices: Relation<Device>[];
 
 
 }

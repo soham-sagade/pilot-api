@@ -9,7 +9,7 @@ export class Material {
   @Column()
   materialType: string;
 
-  @OneToMany(() => Device, (devices) => devices.material)
-  devices: Relation<Device>[];
+  // @OneToMany(() => Device, (devices) => devices.material)
+  // devices: Relation<Device>[];
 
 }

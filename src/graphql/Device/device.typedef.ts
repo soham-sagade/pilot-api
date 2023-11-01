@@ -1,18 +1,18 @@
 export const deviceTypeDefs = `
  type Device {
-    deviceId: Int!
-    materialId: Int!
-    networkId: Int!
+    device_id: Int!
+    material_id: Int!
+    network_id: Int!
     name: String!
-    serialInt: String!
+    serial_number: String!
     uuid: String!
     status: String!
-    createdAt: String!
+    created_at: String!
     temperature: Int!
     manufacturer: String!
-    availableMaterial: String!
+    available_material: String!
     humidity: Int!
-    printingTime: Int!
+    printing_time: Int!
   }
 
   type Query {
