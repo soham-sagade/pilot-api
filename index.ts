@@ -7,7 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./src/graphql";
 import { userRouter } from "./src/routes/userRouter";
-import { connectDatabase } from "./doConnection";
+import { connectDatabase } from "./dbConnection";
 import "dotenv/config";
 import validateUser from "./src/middlewares/validateUser";
 
