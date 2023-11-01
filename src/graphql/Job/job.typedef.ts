@@ -1,10 +1,10 @@
 export const jobTypeDefs = `
  type Job {
     jobId: Int!
-    deviceId: int!
+    deviceId: Int!
     userId: Int!
-    startDate: string!
-    status: string!
+    startDate: String!
+    status: String!
   }
 
   type Query {
