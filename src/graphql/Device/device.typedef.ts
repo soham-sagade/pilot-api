@@ -23,7 +23,3 @@ export const deviceTypeDefs = `
     updateDeviceStatus(actionObject: String!): String
   }
 `;
-
-
-// `
- 
