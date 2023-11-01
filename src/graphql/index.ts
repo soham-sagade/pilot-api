@@ -10,7 +10,7 @@ export const resolvers = {
     ...deviceQueries,
     ...networkQueries,
     ...joblogQueries,
-  },
+  },  
   Mutation: {
     ...deviceMutations,
   },

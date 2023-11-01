@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Relation,
+} from "typeorm";
 import { Userdata } from "./userModel";
 import { Network } from "./networkModel";
 import { Material } from "./materialModel";
@@ -6,19 +12,19 @@ import { Material } from "./materialModel";
 @Entity()
 export class Device {
   @PrimaryGeneratedColumn()
-  deviceId: number;
+  device_id: number;
 
   @Column()
-  materialId: number;
+  material_id: number;
 
   @Column()
-  networkId: number;
+  network_id: number;
 
   @Column()
   name: string;
 
   @Column()
-  serialNumber: string;
+  serial_number: string;
 
   @Column()
   uuid: string;
@@ -27,7 +33,7 @@ export class Device {
   status: string;
 
   @Column()
-  createdAt: Date;
+  created_at: Date;
 
   @Column()
   temperature: number;
@@ -36,17 +42,17 @@ export class Device {
   manufacturer: string;
 
   @Column()
-  availableMaterial: number;
+  available_material: number;
 
   @Column()
   humidity: number;
 
   @Column()
-  printingTime: number;
+  printing_time: number;
 
-  @ManyToOne(() => Network, (network) => network.devices)
-  network: Relation<Network>;
+  // @ManyToOne(() => Network, (network) => network.devices)
+  // network: Relation<Network>;
 
-  @ManyToOne(() => Material, (material) => material.devices)
-  material: Relation<Material>;
+  // @ManyToOne(() => Material, (material) => material.devices)
+  // material: Relation<Material>;
 }
