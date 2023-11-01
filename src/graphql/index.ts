@@ -1,8 +1,8 @@
 import {
-  analyticsQueries,
-  analyticsMutations,
-} from "./analytics/analytics.resolver";
-import { analyticsTypeDefs } from "./analytics/analytics.typedef";
+  deviceQueries,
+  deviceMutations,
+} from "./Device/device.resolver";
+import { deviceTypeDefs } from "./Device/device.typedef";
 import {
   operationQueries,
   operationMutations,
@@ -11,13 +11,13 @@ import { operationTypeDefs } from "./operations/operations.typedef";
 
 export const resolvers = {
   Query: {
-    ...analyticsQueries,
+    ...deviceQueries,
     ...operationQueries,
   },
   Mutation: {
-    ...analyticsMutations,
+    ...deviceMutations,
     ...operationMutations,
   },
 };
 
-export const typeDefs = analyticsTypeDefs + operationTypeDefs;
+export const typeDefs = deviceTypeDefs + operationTypeDefs;
