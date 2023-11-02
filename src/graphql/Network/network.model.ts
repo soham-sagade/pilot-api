@@ -1,5 +1,5 @@
 export type Network = {
-  userId: number;
+  user_id: number;
   name: string;
-  networkId: number;
+  network_id: number;
 };

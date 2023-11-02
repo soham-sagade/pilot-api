@@ -1,9 +1,12 @@
+import { IncidentType } from "../../types";
+
 export type Job = {
-  jobId: number;
-  deviceId: number;
-  userId: number;
-  startDate: Date;
-  endDate: Date;
+  job_id: number;
+  device_id: number;
+  user_id: number;
+  start_date: Date;
+  end_date?: Date;
+  incidentType?: IncidentType;
   status: string;
-  filePath: string;
+  filepath: string;
 };

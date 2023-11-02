@@ -28,7 +28,13 @@ const JSONScalar = new GraphQLScalarType({
   },
 });
 
-export type operationCall = "STRT" | "STP" | "PSE";
+export type OperationCall = "STRT" | "STP" | "PSE";
+
+export type JobStatus = "RUNNING" | "PAUSED" | "ABORTED";
+
+export type IncidentType = "PRNT" | "REFL" | "MNTN";
+
+export type DeviceStatus = "IDLE" | "PRINTING" | "OFFLINE"
 
 export type updateDeviceRecord = {
   networkId: number;

@@ -5,16 +5,16 @@ import { Device } from "./deviceModel";
 @Entity()
 export class Network {
   @PrimaryGeneratedColumn()
-  networkId: number;
+  network_id: number;
 
   @Column()
   name: string;
 
   @Column()
-  userId: number;
+  user_id: number;
 
-  @ManyToOne(() => Userdata, (user) => user.networks)
-  user: Relation<Userdata>;
+  // @ManyToOne(() => Userdata, (user) => user.networks)
+  // user: Relation<Userdata>;
 
   // @OneToMany(() => Device, (devices) => devices.network)
   // devices: Relation<Device>[];

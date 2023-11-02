@@ -1,9 +1,10 @@
 export const jobTypeDefs = `
  type Job {
-    jobId: Int!
-    deviceId: Int!
-    userId: Int!
-    startDate: String!
+    job_id: Int!
+    device_id: Int!
+    user_id: Int!
+    incident_type: String
+    start_date: String!
     status: String!
   }
 
@@ -12,6 +13,7 @@ export const jobTypeDefs = `
   }
 
   type Mutation {
+    createJob(jobData: JSON!): Job
     updateJobStatus(actionObject: String!): Job
   }
 `;

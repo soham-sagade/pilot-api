@@ -1,30 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  Relation,
+} from "typeorm";
 import { Job } from "./jobModel";
 import { Network } from "./networkModel";
 
 @Entity()
 export class Userdata {
   @PrimaryGeneratedColumn()
-  userId: number;
+  user_id: number;
 
   @Column()
-  userName: string;
+  user_name: string;
 
   @Column()
-  userPassword: string;
+  user_password: string;
 
   @Column()
   role: string;
 
   @Column()
-  userEmail: string;
+  user_email: string;
 
   @Column()
-  createdAt: string;
+  created_at: string;
 
-  @OneToMany(() => Job, (job) => job.user)
-  jobs: Relation<Job>[];
+  // @OneToMany(() => Job, (job) => job.user)
+  // jobs: Relation<Job>[];
 
-  @OneToMany(() => Network, (network) => network.user)
-  networks: Relation<Network>[];
+  // @OneToMany(() => Network, (network) => network.user)
+  // networks: Relation<Network>[];
 }

@@ -7,34 +7,34 @@ import {
   Relation,
 } from "typeorm";
 import { Userdata } from "./userModel";
-import { Joblogs } from "./jobLogsModel";
+import { Joblog } from "./jobLogsModel";
 
 @Entity()
 export class Job {
   @PrimaryGeneratedColumn()
-  jobId: number;
+  job_id: number;
 
   @Column()
-  deviceId: number;
+  device_id: number;
 
   @Column()
-  userId: number;
+  user_id: number;
 
   @Column()
-  startDate: Date;
+  start_date: Date;
 
   @Column()
-  endDate: Date | null;
+  end_date?: Date | null;
 
   @Column()
   status: string;
 
   @Column()
-  filePath: string;
+  filepath: string;
 
-  @ManyToOne(() => Userdata, (user) => user.jobs)
-  user: Relation<Userdata>;
+  // @ManyToOne(() => Userdata, (user) => user.jobs)
+  // user: Relation<Userdata>;
 
-  @OneToMany(() => Joblogs, (joblog) => joblog.job)
-  joblogs: Relation<Joblogs>[];
+  // @OneToMany(() => Joblogs, (joblog) => joblog.job)
+  // joblogs: Relation<Joblogs>[];
 }

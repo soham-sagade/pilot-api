@@ -1,4 +1,4 @@
 export type Material = {
-  materialId: number;
-  materialType: string;
+  material_id: number;
+  material_type: string;
 };

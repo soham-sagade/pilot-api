@@ -1,26 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Relation,
+} from "typeorm";
 import { Job } from "./jobModel";
 
 @Entity()
-export class Joblogs {
+export class Joblog {
   @PrimaryGeneratedColumn()
-  logId: number;
+  log_id: number;
 
   @Column()
-  jobId: number;
+  job_id: number;
 
   @Column()
-  userId: number;
+  user_id: number;
 
   @Column()
-  startDate: Date;
+  start_date: Date;
 
   @Column()
-  endDate: Date | null;
+  end_date: Date | null;
 
   @Column()
-  incidentType: string;
+  incident_type: string;
 
-  @ManyToOne(() => Job, (job) => job.joblogs)
-  job: Relation<Job>;
 }

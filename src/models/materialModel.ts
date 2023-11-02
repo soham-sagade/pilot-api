@@ -4,10 +4,10 @@ import { Device } from "./deviceModel";
 @Entity()
 export class Material {
   @PrimaryGeneratedColumn()
-  materialId: number;
+  material_id: number;
 
   @Column()
-  materialType: string;
+  material_type: string;
 
   // @OneToMany(() => Device, (devices) => devices.material)
   // devices: Relation<Device>[];
