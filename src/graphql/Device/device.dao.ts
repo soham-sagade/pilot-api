@@ -1,10 +1,10 @@
 import { DBOperations, IDBOperations } from "../../db/pgOperations";
 import { Device } from "../../models/deviceModel";
+import { updateDeviceRecord } from "../../types";
 // import { Device } from "./device.model";
 
 interface IDeviceDao {
   getDeviceData(filter_object: Record<string, unknown>): Promise<Device>;
-  updateDeviceStatus(action_object: Record<string, unknown>): any;
 }
 
 export class DeviceDao implements IDeviceDao {
@@ -20,5 +20,4 @@ export class DeviceDao implements IDeviceDao {
       console.log(error);
     }
   }
-  updateDeviceStatus(action_object: Record<string, unknown>): any {}
 }

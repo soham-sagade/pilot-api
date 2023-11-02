@@ -13,7 +13,3 @@ export const deviceQueries = {
     }
   },
 };
-
-export const deviceMutations = {
-  updateDeviceStatus: () => "Analytics updated",
-};

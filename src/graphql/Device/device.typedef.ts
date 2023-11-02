@@ -18,8 +18,4 @@ export const deviceTypeDefs = `
   type Query {
     getDeviceData(filterObject: String!): Device
   }
-
-  type Mutation {
-    updateDeviceStatus(actionObject: String!): String
-  }
 `;

@@ -1,4 +1,4 @@
-import { deviceQueries, deviceMutations } from "./Device/device.resolver";
+import { deviceQueries } from "./Device/device.resolver";
 import { deviceTypeDefs } from "./Device/device.typedef";
 import { networkQueries } from "./Network/network.resolver";
 import { networkTypeDefs } from "./Network/network.typedef";
@@ -16,9 +16,13 @@ export const resolvers = {
   },
 
   Mutation: {
-    ...deviceMutations,
     ...jobMutations,
   },
 };
 
-export const typeDefs = deviceTypeDefs + networkTypeDefs + joblogTypeDefs + jobTypeDefs;
+export const typeDefs =
+  `scalar JSON` +
+  deviceTypeDefs +
+  networkTypeDefs +
+  joblogTypeDefs +
+  jobTypeDefs;
