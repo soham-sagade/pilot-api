@@ -7,8 +7,10 @@ import {
 } from "../../dbConnection";
 import { Job } from "../models/jobModel";
 import { IncidentType, JobStatus } from "../types";
-import { Joblog } from "../models/jobLogModel";
 import { JobLog } from "../graphql/Joblog/joblog.model";
+import { Joblog } from "../models/jobLogModel";
+
+
 
 export interface IDBOperations {
   getDeviceData(networkId: number, deviceId: number): Promise<Device>;
@@ -22,6 +24,8 @@ export interface IDBOperations {
     status: JobStatus,
     filePath: string
   ): Promise<Job>;
+  getJobLogData(job_id: number, incident_type: string): Promise<Joblog>;
+  updateJobStatus(jobId: number, status: string): Promise<Job>;
 }
 
 export class DBOperations implements IDBOperations {
@@ -87,20 +91,37 @@ export class DBOperations implements IDBOperations {
     }
   }
 
-  async updateJobStatus(
-    jobId: number,
-    status: string //: Promise<Job>
-  ) {
-    const jobData = await AppDataSource.manager
-      .createQueryBuilder()
-      .update(Job)
-      .set({ status: status })
-      .where("JobId= :jobId", { jobId })
-      .execute();
+  async getJobLogData(job_id: number, incident_type: string): Promise<Joblog> {
+    const jobLogData = await AppDataSource.manager.findOneBy(Joblog, {
+      job_id,
+      incident_type
+    });
+    return jobLogData;
+  }
 
-    //insert into Joblog if above operation is sucessful
-    AppDataSource;
+  async updateJobStatus(jobId: number, status: string): Promise<Job> 
+  {
+    try
+    {
+      const jobToUpdate = await jobRepository.findOneBy({
+        job_id: jobId,
+      });
+      jobToUpdate.status = status;
+      const updatedDevice = await jobRepository.save(jobToUpdate);
+                      
+      const createdJobLog: Joblog = jobLogsRepository.create({
+        job_id: jobToUpdate.job_id,
+        incident_type: status,
+        start_date: new Date(),
+        user_id: 1, //get details from local storage
+        end_date: null,
+      });
+      await jobLogsRepository.save(createdJobLog);
 
-    return jobData;
+      return jobToUpdate;
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 }

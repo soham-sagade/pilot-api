@@ -9,6 +9,6 @@ export const joblogTypeDefs = `
   }
 
   type Query {
-    getJoblogData(filterObject: String!): [Joblog]
+    getJoblogData(filterObject: JSON!): [Joblog]
   }
 `;

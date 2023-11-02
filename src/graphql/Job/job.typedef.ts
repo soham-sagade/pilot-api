@@ -9,11 +9,11 @@ export const jobTypeDefs = `
   }
 
   type Query {
-    getJobData(filterObject: String!): Job
+    getJobData(filterObject: JSON!): Job
   }
 
   type Mutation {
     createJob(jobData: JSON!): Job
-    updateJobStatus(actionObject: String!): Job
+    updateJobStatus(actionObject: JSON!): Job
   }
 `;

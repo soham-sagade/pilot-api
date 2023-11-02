@@ -25,5 +25,15 @@ export const jobMutations = {
       console.log(error);
     }
   },
-  updateJobStatus: () => "",
+  
+  updateJobStatus: async (parent, args, context, info) => {
+    try {
+      const jobData = args.jobData;
+      const dao = new JobDao();
+      const updatedJob: Job = await dao.updateJobStatus(jobData);
+      return updatedJob;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

@@ -52,5 +52,12 @@ export class JobDao implements IJobDao {
     }
   }
 
-  updateJobStatus(action_object: Record<string, unknown>): any {}
+  updateJobStatus(action_object: Record<string, unknown>):  Promise<Job> {
+    try {
+      const { jobId, status }: Record<string, any> = action_object;
+      return this.pg.updateJobStatus(jobId, status);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
