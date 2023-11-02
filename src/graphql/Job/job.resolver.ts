@@ -25,10 +25,10 @@ export const jobMutations = {
       console.log(error);
     }
   },
-  
+
   updateJobStatus: async (parent, args, context, info) => {
     try {
-      const jobData = args.jobData;
+      const jobData = args.actionObject;
       const dao = new JobDao();
       const updatedJob: Job = await dao.updateJobStatus(jobData);
       return updatedJob;

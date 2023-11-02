@@ -24,7 +24,7 @@ export interface IDBOperations {
     status: JobStatus,
     filePath: string
   ): Promise<Job>;
-  getJobLogData(job_id: number, incident_type: string): Promise<Joblog>;
+  getJobLogData(job_id: number, incident_type: string, start_date:Date): Promise<Joblog[]>;
   updateJobStatus(jobId: number, status: string): Promise<Job>;
 }
 
@@ -91,11 +91,16 @@ export class DBOperations implements IDBOperations {
     }
   }
 
-  async getJobLogData(job_id: number, incident_type: string): Promise<Joblog> {
-    const jobLogData = await AppDataSource.manager.findOneBy(Joblog, {
-      job_id,
-      incident_type
-    });
+  async getJobLogData(job_id: number, incident_type: string, start_date: Date): Promise<Joblog[]> {
+    const jobLogData = await jobLogsRepository
+                      .find({
+                       where:{
+                        job_id:job_id ,
+                        ...(incident_type && {incident_type:incident_type}),
+                        ...(start_date && {start_date:start_date})
+                       }
+                      }
+                      )
     return jobLogData;
   }
 
@@ -107,7 +112,7 @@ export class DBOperations implements IDBOperations {
         job_id: jobId,
       });
       jobToUpdate.status = status;
-      const updatedDevice = await jobRepository.save(jobToUpdate);
+      const updatedJob = await jobRepository.save(jobToUpdate);
                       
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: jobToUpdate.job_id,
@@ -118,7 +123,7 @@ export class DBOperations implements IDBOperations {
       });
       await jobLogsRepository.save(createdJobLog);
 
-      return jobToUpdate;
+      return updatedJob;
     }
     catch (error) {
       console.log(error);

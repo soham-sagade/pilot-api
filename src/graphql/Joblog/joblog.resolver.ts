@@ -11,8 +11,8 @@ export const jobLogQueries = {
       try {
           const filterData = args.filterObject;
           const dao = new JobLogDao();
-          const jobData: JobLog = await dao.getJoblogData(filterData);
-          return jobData;
+          const jobLogData: JobLog[] = await dao.getJoblogData(filterData);
+          return jobLogData;
       }
       catch (error)
       {
