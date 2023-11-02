@@ -14,7 +14,4 @@ export const jobTypeDefs = `
   type Mutation {
     updateJobStatus(actionObject: String!): Job
   }
-
 `;
-
- 
