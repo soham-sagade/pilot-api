@@ -7,7 +7,7 @@ import {
   Relation,
 } from "typeorm";
 import { Userdata } from "./userModel";
-import { Joblog } from "./jobLogsModel";
+import { Joblog } from "./jobLogModel";
 
 @Entity()
 export class Job {

@@ -7,7 +7,7 @@ import {
 } from "../../dbConnection";
 import { Job } from "../models/jobModel";
 import { IncidentType, JobStatus } from "../types";
-import { Joblog } from "../models/jobLogsModel";
+import { Joblog } from "../models/jobLogModel";
 import { JobLog } from "../graphql/Joblog/joblog.model";
 
 export interface IDBOperations {

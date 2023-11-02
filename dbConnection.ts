@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import { Userdata } from "./src/models/userModel";
 import { Device } from "./src/models/deviceModel";
-import { Joblog } from "./src/models/jobLogsModel";
+import { Joblog } from "./src/models/jobLogModel";
 import { Job } from "./src/models/jobModel";
 import { Material } from "./src/models/materialModel";
 import { Network } from "./src/models/networkModel";
