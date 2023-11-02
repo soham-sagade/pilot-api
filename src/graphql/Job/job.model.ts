@@ -2,8 +2,8 @@ export type Job = {
   jobId: number;
   deviceId: number;
   userId: number;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   status: string;
   filePath: string;
 };

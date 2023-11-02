@@ -12,7 +12,7 @@ export const jobTypeDefs = `
   }
 
   type Mutation {
-    updateJobStatus(actionObject: String!): String
+    updateJobStatus(actionObject: String!): Job
   }
 
 `;
