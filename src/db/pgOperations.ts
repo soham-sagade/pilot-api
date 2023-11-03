@@ -10,8 +10,6 @@ import { IncidentType, JobStatus } from "../types";
 import { JobLog } from "../graphql/Joblog/joblog.model";
 import { Joblog } from "../models/jobLogModel";
 
-
-
 export interface IDBOperations {
   getDeviceData(networkId: number, deviceId: number): Promise<Device>;
   getJobData(jobId: number, deviceId: number, status: string): Promise<Job>;
@@ -24,8 +22,13 @@ export interface IDBOperations {
     status: JobStatus,
     filePath: string
   ): Promise<Job>;
-  getJobLogData(job_id: number, incident_type: string, start_date:Date): Promise<Joblog[]>;
+  getJobLogData(
+    job_id: number,
+    incident_type: string,
+    start_date: Date
+  ): Promise<Joblog[]>;
   updateJobStatus(jobId: number, status: string): Promise<Job>;
+  getAllDeviceData(network_id: number): Promise<Array<Device>>;
 }
 
 export class DBOperations implements IDBOperations {
@@ -91,29 +94,29 @@ export class DBOperations implements IDBOperations {
     }
   }
 
-  async getJobLogData(job_id: number, incident_type: string, start_date: Date): Promise<Joblog[]> {
-    const jobLogData = await jobLogsRepository
-                      .find({
-                       where:{
-                        job_id:job_id ,
-                        ...(incident_type && {incident_type:incident_type}),
-                        ...(start_date && {start_date:start_date})
-                       }
-                      }
-                      )
+  async getJobLogData(
+    job_id: number,
+    incident_type: string,
+    start_date: Date
+  ): Promise<Joblog[]> {
+    const jobLogData = await jobLogsRepository.find({
+      where: {
+        job_id: job_id,
+        ...(incident_type && { incident_type: incident_type }),
+        ...(start_date && { start_date: start_date }),
+      },
+    });
     return jobLogData;
   }
 
-  async updateJobStatus(jobId: number, status: string): Promise<Job> 
-  {
-    try
-    {
+  async updateJobStatus(jobId: number, status: string): Promise<Job> {
+    try {
       const jobToUpdate = await jobRepository.findOneBy({
         job_id: jobId,
       });
       jobToUpdate.status = status;
       const updatedJob = await jobRepository.save(jobToUpdate);
-                      
+
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: jobToUpdate.job_id,
         incident_type: status,
@@ -124,9 +127,17 @@ export class DBOperations implements IDBOperations {
       await jobLogsRepository.save(createdJobLog);
 
       return updatedJob;
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
+  }
+
+  async getAllDeviceData(network_id: number): Promise<Device[]> {
+    const deviceData = deviceRepository.find({
+      where: {
+        network_id,
+      },
+    });
+    return deviceData;
   }
 }
