@@ -12,4 +12,14 @@ export const deviceQueries = {
       console.log(error);
     }
   },
+
+  getAllDevices: async (parent, args, context, info) => {
+    try {
+      const dao = new DeviceDao();
+      const deviceData: Array<Device> = await dao.getAllDeviceData(args.networkId);
+      return deviceData;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };

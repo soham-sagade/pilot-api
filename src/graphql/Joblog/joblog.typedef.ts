@@ -1,14 +1,14 @@
 export const joblogTypeDefs = `
  type Joblog {
-    joblogId: Int!
-    jobId: Int!
-    startDate: String!
-    endDate: String!
-    incidentType: String!
-    userId: String!
+    log_id: Int!
+    job_id: Int!
+    start_date: String!
+    end_date: String
+    incident_type: String!
+    user_id: String!
   }
 
   type Query {
-    getJoblogData(filterObject: JSON!): [Joblog]
+    getJoblogData(filterObject: JSON!): [Joblog]  
   }
 `;

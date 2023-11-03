@@ -3,7 +3,6 @@ export const jobTypeDefs = `
     job_id: Int!
     device_id: Int!
     user_id: Int!
-    incident_type: String
     start_date: String!
     status: String!
   }
