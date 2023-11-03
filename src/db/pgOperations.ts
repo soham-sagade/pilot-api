@@ -18,7 +18,6 @@ export interface IDBOperations {
     device_id: number,
     start_date: string,
     end_date: string,
-    incidentType: IncidentType,
     status: JobStatus,
     filePath: string
   ): Promise<Job>;
@@ -58,7 +57,6 @@ export class DBOperations implements IDBOperations {
     device_id: number,
     start_date: string,
     end_date: string,
-    incident_type: IncidentType,
     status: JobStatus,
     filePath: string
   ): Promise<Job> {
@@ -75,7 +73,7 @@ export class DBOperations implements IDBOperations {
 
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: createdJob.job_id,
-        incident_type,
+        incident_type: status,
         start_date,
         user_id,
         end_date: null,

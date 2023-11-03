@@ -23,7 +23,6 @@ export class JobDao implements IJobDao {
         device_id,
         start_date,
         end_date,
-        incident_type,
         status,
         filePath,
       }: Record<string, any> = job_data;
@@ -34,7 +33,6 @@ export class JobDao implements IJobDao {
         device_id,
         start_date,
         end_date,
-        incident_type,
         status,
         filePath
       );
