@@ -11,7 +11,7 @@ export class IotApi implements IIotApi {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     let iotDevices,
-      responseStatus = false;
+      responseStatus = true;
     const setResponse = (value) => (responseStatus = value);
     const filePath = path.join(__dirname, "/iotDevice.json");
     fs.readFile(filePath, (err, data) => {
@@ -19,7 +19,7 @@ export class IotApi implements IIotApi {
       iotDevices[deviceId.toString()].status = status;
       const iotDevicesString = JSON.stringify(iotDevices);
       fs.writeFile(filePath, iotDevicesString, "utf8", (err) => {
-        if (!err) return setResponse(true);
+        if (err) return setResponse(false);
       });
     });
     return responseStatus;

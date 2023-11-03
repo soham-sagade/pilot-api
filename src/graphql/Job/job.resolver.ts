@@ -7,7 +7,7 @@ export const jobQueries = {
     try {
       const filterData = args.filterObject;
       const dao = new JobDao();
-      const jobData: Job = await dao.getJobsData(filterData);
+      const jobData: Job[] = await dao.getJobsData(filterData);
       return jobData;
     } catch (error) {
       console.log(error);
@@ -22,11 +22,7 @@ export const jobMutations = {
       const dao = new JobDao();
       const iot = new IotApi();
       if (
-        !iot.updateIotDeviceStatus(
-          args.jobData.deviceId,
-          args.jobData.status
-        ) &&
-        true
+        !iot.updateIotDeviceStatus(args.jobData.device_id, args.jobData.status)
       )
         return;
       const createdJob: Job = await dao.createJob(jobData);
@@ -45,7 +41,7 @@ export const jobMutations = {
           args.actionObject.deviceId,
           args.actionObject.status
         ) &&
-        true 
+        true
       )
         return;
       const dao = new JobDao();

@@ -6,19 +6,19 @@ import {
   jobRepository,
 } from "../../dbConnection";
 import { Job } from "../models/jobModel";
-import { IncidentType, JobStatus } from "../types";
+import { DeviceStatus, JobStatus } from "../types";
 import { JobLog } from "../graphql/Joblog/joblog.model";
 import { Joblog } from "../models/jobLogModel";
 
 export interface IDBOperations {
   getDeviceData(networkId: number, deviceId: number): Promise<Device>;
-  getJobData(jobId: number, deviceId: number, status: string): Promise<Job>;
+  getJobData(status: string, jobId?: number, deviceId?: number): Promise<Job[]>;
   createJob(
     user_id: number,
     device_id: number,
     start_date: string,
     end_date: string,
-    status: JobStatus,
+    status: string,
     filePath: string
   ): Promise<Job>;
   getJobLogData(
@@ -40,11 +40,10 @@ export class DBOperations implements IDBOperations {
   }
 
   async getJobData(
-    job_id: number,
-    device_id: number,
-    status: string
-  ): Promise<Job> {
-
+    status: string,
+    job_id?: number,
+    device_id?: number
+  ): Promise<Job[]> {
     const jobData = await jobRepository.find({
       where: {
         job_id: job_id,
@@ -52,7 +51,7 @@ export class DBOperations implements IDBOperations {
         ...(status && { status: status }),
       },
     });
-    return jobData[0];
+    return jobData;
   }
 
   async createJob(
@@ -60,14 +59,14 @@ export class DBOperations implements IDBOperations {
     device_id: number,
     start_date: string,
     end_date: string,
-    status: JobStatus,
+    status: string,
     filePath: string
   ): Promise<Job> {
     try {
       const createdJob: Job = jobRepository.create({
         user_id,
         device_id,
-        start_date,
+        start_date: new Date(),
         end_date: null,
         status,
         filepath: filePath,
@@ -77,7 +76,7 @@ export class DBOperations implements IDBOperations {
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: createdJob.job_id,
         incident_type: status,
-        start_date,
+        start_date: new Date(),
         user_id,
         end_date: null,
       });
@@ -86,7 +85,7 @@ export class DBOperations implements IDBOperations {
       const deviceToUpdate = await deviceRepository.findOneBy({
         device_id: device_id,
       });
-      deviceToUpdate.status = "PRINTING";
+      deviceToUpdate.status = DeviceStatus.PRINTING;
       const updatedDevice = await deviceRepository.save(deviceToUpdate);
 
       return createdJob;
@@ -116,23 +115,20 @@ export class DBOperations implements IDBOperations {
         job_id: jobId,
       });
       jobToUpdate.status = status;
-      let updatedJob
-      if(status=='ABORT' || status=='COMPLETED')
-      {
-        jobToUpdate.end_date=new Date();
-        updatedJob= await jobRepository.save(jobToUpdate); 
+      let updatedJob;
+      if (status == JobStatus.ABORTED || status == JobStatus.COMPLETED) {
+        jobToUpdate.end_date = new Date();
+        updatedJob = await jobRepository.save(jobToUpdate);
 
         //update device status
         const deviceToUpdate = await deviceRepository.findOneBy({
           device_id: jobToUpdate.device_id,
         });
-        deviceToUpdate.status = 'IDLE';
+        deviceToUpdate.status = DeviceStatus.IDLE;
         await deviceRepository.save(deviceToUpdate);
+      } else {
+        updatedJob = await jobRepository.save(jobToUpdate);
       }
-      else{
-        updatedJob= await jobRepository.save(jobToUpdate); 
-      }
-      
 
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: jobToUpdate.job_id,
