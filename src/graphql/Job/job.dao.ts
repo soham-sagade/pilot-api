@@ -43,8 +43,8 @@ export class JobDao implements IJobDao {
 
   getJobsData(filter_object: Record<string, number>): Promise<Job[]> {
     try {
-      const { jobId, deviceId, status }: Record<string, any> = filter_object;
-      return this.pg.getJobData(jobId, deviceId, status);
+      const { job_id, device_id, status }: Record<string, any> = filter_object;
+      return this.pg.getJobData(job_id, device_id, status);
     } catch (error) {
       console.log(error);
     }

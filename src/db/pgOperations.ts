@@ -12,7 +12,7 @@ import { Joblog } from "../models/jobLogModel";
 
 export interface IDBOperations {
   getDeviceData(networkId: number, deviceId: number): Promise<Device>;
-  getJobData(status: string, jobId?: number, deviceId?: number): Promise<Job[]>;
+  getJobData(jobId: number, deviceId: number, status: string): Promise<Job[]>;
   createJob(
     user_id: number,
     device_id: number,
@@ -40,13 +40,13 @@ export class DBOperations implements IDBOperations {
   }
 
   async getJobData(
-    status: string,
-    job_id?: number,
-    device_id?: number
+    job_id: number,
+    device_id: number,
+    status: string
   ): Promise<Job[]> {
     const jobData = await jobRepository.find({
       where: {
-        job_id: job_id,
+         ...(job_id && { job_id: job_id}),
         ...(device_id && { device_id: device_id }),
         ...(status && { status: status }),
       },
