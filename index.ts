@@ -7,10 +7,11 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./src/graphql";
 import { userRouter } from "./src/routes/userRouter";
-import { connectDatabase } from "./doConnection";
+import { connectDatabase } from "./dbConnection";
 import "dotenv/config";
+import validateUser from "./src/middlewares/validateUser";
 
-const port: number | string = process.env.PORT || 3000;
+const port: number | string = process.env.PORT || 3001;
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -28,7 +29,7 @@ connectDatabase();
 
 app.use(cors(), bodyParser.json());
 app.use(userRouter);
-app.use(expressMiddleware(server));
+app.use(validateUser, expressMiddleware(server));
 
 httpServer.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:${port}`)

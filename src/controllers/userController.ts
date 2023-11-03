@@ -1,6 +1,6 @@
-import { user_info } from "../models/userModel";
+import { Userdata } from "../models/userModel";
 import { Request, Response, NextFunction } from "express";
-import { AppDataSource } from "../../doConnection";
+import { AppDataSource } from "../../dbConnection";
 import jwt from "jsonwebtoken";
 
 interface IUserController {
@@ -17,7 +17,7 @@ export class UserController implements IUserController {
           error: "Please enter all required fields",
         });
 
-      const user = await AppDataSource.manager.findOneBy(user_info, {
+      const user = await AppDataSource.manager.findOneBy(Userdata, {
         user_name: username,
       });
 
@@ -31,7 +31,7 @@ export class UserController implements IUserController {
           data: { username },
         },
         //TODO: Remove and change secret keys
-        process.env.SECRETKEY || "sh@5$jsYQp0W",
+        process.env.SECRETKEY,
         { expiresIn: "1h" }
       );
 
@@ -66,7 +66,7 @@ export class UserController implements IUserController {
   //       {
   //         data: { username },
   //       },
-  //       process.env.SECRETKEY || "sh@5$jsYQp0W",
+  //       process.env.SECRETKEY,
   //       { expiresIn: "1h" }
   //     );
 

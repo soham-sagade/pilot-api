@@ -1,23 +1,28 @@
-import {
-  analyticsQueries,
-  analyticsMutations,
-} from "./analytics/analytics.resolver";
-import { analyticsTypeDefs } from "./analytics/analytics.typedef";
-import {
-  operationQueries,
-  operationMutations,
-} from "./operations/operations.resolver";
-import { operationTypeDefs } from "./operations/operations.typedef";
+import { deviceQueries } from "./Device/device.resolver";
+import { deviceTypeDefs } from "./Device/device.typedef";
+import { networkQueries } from "./Network/network.resolver";
+import { networkTypeDefs } from "./Network/network.typedef";
+import { jobLogQueries } from "./Joblog/joblog.resolver";
+import { joblogTypeDefs } from "./Joblog/joblog.typedef";
+import { jobMutations, jobQueries } from "./Job/job.resolver";
+import { jobTypeDefs } from "./Job/job.typedef";
 
 export const resolvers = {
   Query: {
-    ...analyticsQueries,
-    ...operationQueries,
+    ...deviceQueries,
+    ...networkQueries,
+    ...jobLogQueries,
+    ...jobQueries,
   },
+
   Mutation: {
-    ...analyticsMutations,
-    ...operationMutations,
+    ...jobMutations,
   },
 };
 
-export const typeDefs = analyticsTypeDefs + operationTypeDefs;
+export const typeDefs =
+  `scalar JSON` +
+  deviceTypeDefs +
+  networkTypeDefs +
+  joblogTypeDefs +
+  jobTypeDefs;
