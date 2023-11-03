@@ -44,12 +44,15 @@ export class DBOperations implements IDBOperations {
     device_id: number,
     status: string
   ): Promise<Job> {
-    const jobData = await AppDataSource.manager.findOneBy(Job, {
-      job_id,
-      device_id,
-      status,
+
+    const jobData = await jobRepository.find({
+      where: {
+        job_id: job_id,
+        ...(device_id && { device_id: device_id }),
+        ...(status && { status: status }),
+      },
     });
-    return jobData;
+    return jobData[0];
   }
 
   async createJob(
@@ -113,7 +116,23 @@ export class DBOperations implements IDBOperations {
         job_id: jobId,
       });
       jobToUpdate.status = status;
-      const updatedJob = await jobRepository.save(jobToUpdate);
+      let updatedJob
+      if(status=='ABORT' || status=='COMPLETED')
+      {
+        jobToUpdate.end_date=new Date();
+        updatedJob= await jobRepository.save(jobToUpdate); 
+
+        //update device status
+        const deviceToUpdate = await deviceRepository.findOneBy({
+          device_id: jobToUpdate.device_id,
+        });
+        deviceToUpdate.status = 'IDLE';
+        await deviceRepository.save(deviceToUpdate);
+      }
+      else{
+        updatedJob= await jobRepository.save(jobToUpdate); 
+      }
+      
 
       const createdJobLog: Joblog = jobLogsRepository.create({
         job_id: jobToUpdate.job_id,
