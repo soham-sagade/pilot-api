@@ -49,7 +49,7 @@ export class DBOperations implements IDBOperations {
   ): Promise<Job[]> {
     const jobData = await jobRepository.find({
       where: {
-        job_id: job_id,
+         ...(job_id && { job_id: job_id}),
         ...(device_id && { device_id: device_id }),
         ...(status && { status: status }),
       },
