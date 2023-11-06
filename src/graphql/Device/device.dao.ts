@@ -16,8 +16,8 @@ export class DeviceDao implements IDeviceDao {
 
   async getDeviceData(filter_object: Record<string, number>): Promise<Device> {
     try {
-      const { networkId, deviceId }: Record<string, number> = filter_object;
-      return this.pg.getDeviceData(networkId, deviceId);
+      const { network_id, device_id }: Record<string, number> = filter_object;
+      return this.pg.getDeviceData(network_id, device_id);
     } catch (error) {
       console.log(error);
     }

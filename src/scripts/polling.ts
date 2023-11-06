@@ -28,17 +28,19 @@ export async function updateJobStatuses() {
       const currentTime = Math.floor(new Date().getTime() / 1000);
       const devicePrintingTime = deviceForJob.printing_time;
 
-      if (currentTime - startTime >= devicePrintingTime) {
+      if (currentTime - startTime + 5 >= devicePrintingTime) {
         const jobToUpdate = await jobRepository.findOneBy({
           job_id: job.job_id,
         });
         jobToUpdate.status = JobStatus.COMPLETED;
+        jobToUpdate.end_date = new Date();
         await jobRepository.save(jobToUpdate);
 
         const joblogToUpdate = jobLogsRepository.create({
           job_id: job.job_id,
           incident_type: JobStatus.COMPLETED,
           start_date: job.start_date,
+          end_date: new Date(),
           user_id: job.user_id,
         });
 

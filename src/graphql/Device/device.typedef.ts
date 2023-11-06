@@ -16,7 +16,7 @@ export const deviceTypeDefs = `
   }
 
   type Query {
-    getDeviceData(filterObject: String!): Device
+    getDeviceData(filterObject: JSON!): Device
     getAllDevices(networkId: Int): [Device]
   }
 `;
