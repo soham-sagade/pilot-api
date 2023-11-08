@@ -10,6 +10,7 @@ import { userRouter } from "./src/routes/userRouter";
 import { connectDatabase } from "./dbConnection";
 import "dotenv/config";
 import validateUser from "./src/middlewares/validateUser";
+import { updateJobStatuses } from "./src/scripts/polling";
 
 const port: number | string = process.env.PORT || 3001;
 
@@ -34,3 +35,7 @@ app.use(validateUser, expressMiddleware(server));
 httpServer.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:${port}`)
 );
+
+setInterval(() => {
+  updateJobStatuses();
+}, 30000);

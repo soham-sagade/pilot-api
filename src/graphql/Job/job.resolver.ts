@@ -1,3 +1,4 @@
+import { IotApi } from "../../Iot/iotAPIs";
 import { JobDao } from "./job.dao";
 import { Job } from "./job.model";
 
@@ -6,7 +7,7 @@ export const jobQueries = {
     try {
       const filterData = args.filterObject;
       const dao = new JobDao();
-      const jobData: Job = await dao.getJobsData(filterData);
+      const jobData: Job[] = await dao.getJobsData(filterData);
       return jobData;
     } catch (error) {
       console.log(error);
@@ -19,6 +20,11 @@ export const jobMutations = {
     try {
       const jobData = args.jobData;
       const dao = new JobDao();
+      const iot = new IotApi();
+      if (
+        !iot.updateIotDeviceStatus(args.jobData.device_id, args.jobData.status)
+      )
+        return;
       const createdJob: Job = await dao.createJob(jobData);
       return createdJob;
     } catch (error) {
@@ -29,6 +35,15 @@ export const jobMutations = {
   updateJobStatus: async (parent, args, context, info) => {
     try {
       const jobData = args.actionObject;
+      const iot = new IotApi();
+      if (
+        !iot.updateIotDeviceStatus(
+          args.actionObject.device_id,
+          args.actionObject.status
+        ) &&
+        true
+      )
+        return;
       const dao = new JobDao();
       const updatedJob: Job = await dao.updateJobStatus(jobData);
       return updatedJob;

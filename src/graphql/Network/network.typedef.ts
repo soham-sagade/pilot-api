@@ -1,11 +1,11 @@
 export const networkTypeDefs = `
  type Network {
-    networkId: Int!
+    network_id: Int!
     name: String!
-    userId: String!
+    user_id: String!
   }
 
   type Query {
-    getNetworkData(filterObject: String!): Network
+    getAllNetworks(filterObject: JSON!): [Network]  
   }
 `;

@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Userdata } from "./userModel";
 import { Joblog } from "./jobLogModel";
+import { Device } from "./deviceModel";
 
 @Entity()
 export class Job {
@@ -37,4 +38,7 @@ export class Job {
 
   // @OneToMany(() => Joblogs, (joblog) => joblog.job)
   // joblogs: Relation<Joblogs>[];
+
+  // @ManyToOne(() => Device, (device) => device.jobs)
+  // device: Relation<Device>;
 }

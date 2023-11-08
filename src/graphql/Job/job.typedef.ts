@@ -8,7 +8,7 @@ export const jobTypeDefs = `
   }
 
   type Query {
-    getJobData(filterObject: JSON!): Job
+    getJobData(filterObject: JSON!): [Job]
   }
 
   type Mutation {

@@ -1,9 +1,23 @@
+import { DBOperations, IDBOperations } from "../../db/pgOperations";
 import { Network } from "../Network/network.model";
 
 interface INetworkDao {
-  getNetworkData(filter_object: Record<string, unknown>): Network;
+  getAllNetworks(filter_object: Record<string, unknown>): Promise<Network[]>;
 }
 
 export class NetworkDao implements INetworkDao {
-  getNetworkData(filter_object: Record<string, unknown>): any {}
+  private pg: IDBOperations;
+
+  constructor() {
+    this.pg = new DBOperations();
+  }
+
+  getAllNetworks(filter_object: Record<string, unknown>): Promise<Network[]> {
+    try {
+      const { user_id }: Record<string, any> = filter_object;
+      return this.pg.getNetworks(user_id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

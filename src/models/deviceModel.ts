@@ -4,10 +4,12 @@ import {
   Column,
   ManyToOne,
   Relation,
+  OneToMany,
 } from "typeorm";
 import { Userdata } from "./userModel";
 import { Network } from "./networkModel";
 import { Material } from "./materialModel";
+import { Job } from "./jobModel";
 
 @Entity()
 export class Device {
@@ -49,6 +51,9 @@ export class Device {
 
   @Column()
   printing_time: number;
+
+  // @OneToMany(() => Job, (job) => job.device)
+  // jobs: Relation<Job[]>;
 
   // @ManyToOne(() => Network, (network) => network.devices)
   // network: Relation<Network>;

@@ -5,7 +5,7 @@ import { Job } from "../../models/jobModel";
 
 interface IJobDao {
   createJob(job_data: Record<string, unknown>): Promise<any>;
-  getJobsData(filter_object: Record<string, unknown>): Promise<Job>;
+  getJobsData(filter_object: Record<string, unknown>): Promise<Job[]>;
   updateJobStatus(action_object: Record<string, unknown>): any;
 }
 
@@ -24,9 +24,9 @@ export class JobDao implements IJobDao {
         start_date,
         end_date,
         status,
-        filePath,
+        file_path,
       }: Record<string, any> = job_data;
-      if (!user_id || !device_id || !start_date || !status || !filePath)
+      if (!user_id || !device_id || !status || !file_path)
         return Promise.reject({ error: "Please provide all mandatory fields" });
       return this.pg.createJob(
         user_id,
@@ -34,17 +34,17 @@ export class JobDao implements IJobDao {
         start_date,
         end_date,
         status,
-        filePath
+        file_path
       );
     } catch (error) {
       console.log(error);
     }
   }
 
-  getJobsData(filter_object: Record<string, number>): Promise<Job> {
+  getJobsData(filter_object: Record<string, number>): Promise<Job[]> {
     try {
-      const { jobId, deviceId, status }: Record<string, any> = filter_object;
-      return this.pg.getJobData(jobId, deviceId, status);
+      const { job_id, device_id, status }: Record<string, any> = filter_object;
+      return this.pg.getJobData(job_id, device_id, status);
     } catch (error) {
       console.log(error);
     }
@@ -52,8 +52,8 @@ export class JobDao implements IJobDao {
 
   updateJobStatus(action_object: Record<string, unknown>):  Promise<Job> {
     try {
-      const { jobId, status }: Record<string, any> = action_object;
-      return this.pg.updateJobStatus(jobId, status);
+      const { job_id, status }: Record<string, any> = action_object;
+      return this.pg.updateJobStatus(job_id, status);
     } catch (error) {
       console.log(error);
     }

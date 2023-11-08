@@ -5,6 +5,7 @@ import { Joblog } from "./src/models/jobLogModel";
 import { Job } from "./src/models/jobModel";
 import { Material } from "./src/models/materialModel";
 import { Network } from "./src/models/networkModel";
+import { DeviceLog } from "./src/models/deviceLogModel";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
     process.env.POSTGRES_CONNECTION_URL ||
     "postgres://ufyywhks:sGWHqNGMuRm1naH5rqMhpBRqJgywAr93@flora.db.elephantsql.com/ufyywhks",
   port: 5432,
-  entities: [Userdata, Device, Joblog, Job, Material, Network],
+  entities: [Userdata, Device, Joblog, Job, Material, Network, DeviceLog],
 });
 
 export function connectDatabase() {
@@ -32,3 +33,4 @@ export const jobLogsRepository = AppDataSource.getRepository(Joblog);
 export const networkRepository = AppDataSource.getRepository(Network);
 export const materialRepository = AppDataSource.getRepository(Material);
 export const deviceRepository = AppDataSource.getRepository(Device);
+export const deviceLogRepository = AppDataSource.getRepository(DeviceLog);
