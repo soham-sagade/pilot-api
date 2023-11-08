@@ -22,4 +22,6 @@ export const deviceQueries = {
       console.log(error);
     }
   }
+
+  
 };

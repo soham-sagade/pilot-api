@@ -4,11 +4,13 @@ import {
   deviceRepository,
   jobLogsRepository,
   jobRepository,
+  networkRepository,
 } from "../../dbConnection";
 import { Job } from "../models/jobModel";
 import { DeviceStatus, JobStatus } from "../types";
 import { JobLog } from "../graphql/Joblog/joblog.model";
 import { Joblog } from "../models/jobLogModel";
+import { Network } from "../models/networkModel";
 
 export interface IDBOperations {
   getDeviceData(networkId: number, deviceId: number): Promise<Device>;
@@ -28,6 +30,7 @@ export interface IDBOperations {
   ): Promise<Joblog[]>;
   updateJobStatus(jobId: number, status: string): Promise<Job>;
   getAllDeviceData(network_id: number): Promise<Array<Device>>;
+  getNetworks(user_id:number): Promise<Network[]>
 }
 
 export class DBOperations implements IDBOperations {
@@ -152,5 +155,14 @@ export class DBOperations implements IDBOperations {
       },
     });
     return deviceData;
+  }
+
+  async getNetworks(user_id:number): Promise<Network[]>{
+    const networks = networkRepository.find({
+      where: {
+        user_id,
+      },
+    });
+    return networks;
   }
 }

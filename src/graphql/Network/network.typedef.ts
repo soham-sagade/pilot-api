@@ -6,6 +6,6 @@ export const networkTypeDefs = `
   }
 
   type Query {
-    getNetworkData(filterObject: String!): Network
+    getAllNetworks(filterObject: JSON!): [Network]  
   }
 `;
