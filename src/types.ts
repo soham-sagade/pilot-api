@@ -43,10 +43,19 @@ export const DeviceStatus = {
   PRINTING: "PRNT",
   IDLE: "IDLE",
   OFFLINE: "OFLN",
+  TMPCHNG: "TMPCHNG",
+  HMDTCHNG: "HMDTCHNG",
 };
 
 export type updateDeviceRecord = {
   networkId: number;
   deviceId: number;
   action: string;
+};
+
+export const statusDescMap = {
+  PRNT: "Printing Job Started",
+  TMPCHNG: "Temperature Changed",
+  HMDTCHNG: "Humidity Changed",
+  IDLE: "Device Idle",
 };

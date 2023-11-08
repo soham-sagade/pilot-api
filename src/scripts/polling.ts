@@ -1,13 +1,15 @@
 import {
+  deviceLogRepository,
   deviceRepository,
   jobLogsRepository,
   jobRepository,
 } from "../../dbConnection";
-import { Device } from "../models/deviceModel";
-import { DeviceStatus, JobStatus } from "../types";
+import { DeviceStatus, JobStatus, statusDescMap } from "../types";
+import callEvent from "./deviceEvent";
 
 export async function updateJobStatuses() {
   try {
+    callEvent()
     const ongoingJobs: any = await jobRepository.find({
       where: {
         status: JobStatus.PRINTING,
@@ -23,7 +25,7 @@ export async function updateJobStatuses() {
       .where("device.device_id IN(:...deviceIds)", { deviceIds })
       .getOne();
 
-    ongoingJobs.forEach(async (job) => {
+    ongoingJobs.forEach(async (job: any) => {
       const startTime = Math.floor(new Date(job.start_date).getTime() / 1000);
       const currentTime = Math.floor(new Date().getTime() / 1000);
       const devicePrintingTime = deviceForJob.printing_time;
@@ -45,6 +47,15 @@ export async function updateJobStatuses() {
         });
 
         await jobLogsRepository.save(joblogToUpdate);
+
+        const deviceLogToUpdate = deviceLogRepository.create({
+          device_id: job.device_id,
+          status: DeviceStatus.IDLE,
+          occurred_at: new Date(),
+          change_description: statusDescMap.IDLE ?? "NA"
+        })
+
+        await deviceLogRepository.save(deviceLogToUpdate);
 
         const deviceToUpdate = await deviceRepository.findOneBy({
           device_id: job.device_id,
