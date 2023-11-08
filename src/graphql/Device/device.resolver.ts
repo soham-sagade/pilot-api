@@ -16,7 +16,7 @@ export const deviceQueries = {
   getAllDevices: async (parent, args, context, info) => {
     try {
       const dao = new DeviceDao();
-      const deviceData: Array<Device> = await dao.getAllDeviceData(args.networkId);
+      const deviceData: Array<Device> = await dao.getAllDeviceData(args.filterObject.network_id);
       return deviceData;
     } catch (error) {
       console.log(error);

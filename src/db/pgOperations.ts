@@ -82,6 +82,7 @@ export class DBOperations implements IDBOperations {
     device_id?: number,
     status?: string
   ): Promise<Job[]> {
+    console.log(device_id);
     const jobData = await jobRepository.find({
       where: {
         ...(job_id && { job_id: job_id }),
@@ -193,7 +194,7 @@ export class DBOperations implements IDBOperations {
   }
 
   async getAllDeviceData(network_id: number): Promise<Device[]> {
-    const deviceData = deviceRepository.find({
+    const deviceData = await deviceRepository.find({
       where: {
         network_id,
       },
@@ -202,7 +203,7 @@ export class DBOperations implements IDBOperations {
   }
 
   async getNetworks(user_id: number): Promise<Network[]> {
-    const networks = networkRepository.find({
+    const networks = await networkRepository.find({
       where: {
         user_id,
       },
