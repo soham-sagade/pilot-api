@@ -38,7 +38,7 @@ export const jobMutations = {
       const iot = new IotApi();
       if (
         !iot.updateIotDeviceStatus(
-          args.actionObject.deviceId,
+          args.actionObject.device_id,
           args.actionObject.status
         ) &&
         true

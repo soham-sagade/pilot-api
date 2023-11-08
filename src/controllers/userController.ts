@@ -26,6 +26,15 @@ export class UserController implements IUserController {
           error: "User not found!",
         });
 
+      const user_password = user.user_password;
+
+      //TODO: Write encryption logic here
+
+      if (user_password !== password)
+        return res.status(401).send({
+          error: "Invalid Username or Password!",
+        });
+
       const authToken = jwt.sign(
         {
           data: { username },

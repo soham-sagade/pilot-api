@@ -8,13 +8,16 @@ import {
 } from "../../dbConnection";
 import { Job } from "../models/jobModel";
 import { DeviceStatus, JobStatus } from "../types";
-import { JobLog } from "../graphql/Joblog/joblog.model";
 import { Joblog } from "../models/jobLogModel";
 import { Network } from "../models/networkModel";
 
 export interface IDBOperations {
-  getDeviceData(networkId: number, deviceId: number): Promise<Device>;
-  getJobData(jobId: number, deviceId: number, status: string): Promise<Job[]>;
+  getDeviceData(network_id: number, device_id: number): Promise<Device>;
+  getJobData(
+    job_id: number,
+    device_id?: number,
+    status?: string
+  ): Promise<Job[]>;
   createJob(
     user_id: number,
     device_id: number,
@@ -28,7 +31,7 @@ export interface IDBOperations {
     incident_type: string,
     start_date: Date
   ): Promise<Joblog[]>;
-  updateJobStatus(jobId: number, status: string): Promise<Job>;
+  updateJobStatus(job_id: number, status: string): Promise<Job>;
   getAllDeviceData(network_id: number): Promise<Array<Device>>;
   getNetworks(user_id:number): Promise<Network[]>
 }
@@ -44,8 +47,8 @@ export class DBOperations implements IDBOperations {
 
   async getJobData(
     job_id: number,
-    device_id: number,
-    status: string
+    device_id?: number,
+    status?: string
   ): Promise<Job[]> {
     const jobData = await jobRepository.find({
       where: {
@@ -112,10 +115,10 @@ export class DBOperations implements IDBOperations {
     return jobLogData;
   }
 
-  async updateJobStatus(jobId: number, status: string): Promise<Job> {
+  async updateJobStatus(job_id: number, status: string): Promise<Job> {
     try {
       const jobToUpdate = await jobRepository.findOneBy({
-        job_id: jobId,
+        job_id,
       });
       jobToUpdate.status = status;
       let updatedJob;
