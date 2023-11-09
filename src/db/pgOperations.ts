@@ -36,6 +36,7 @@ export interface IDBOperations {
     filePath: string
   ): Promise<Job>;
   getJobLogData(
+    device_id: number,
     job_id: number,
     incident_type: string,
     start_date: Date
@@ -82,7 +83,6 @@ export class DBOperations implements IDBOperations {
     device_id?: number,
     status?: string
   ): Promise<Job[]> {
-    console.log(device_id);
     const jobData = await jobRepository.find({
       where: {
         ...(job_id && { job_id: job_id }),
@@ -143,6 +143,7 @@ export class DBOperations implements IDBOperations {
   }
 
   async getJobLogData(
+    device_id: number,
     job_id: number,
     incident_type: string,
     start_date: Date
@@ -150,8 +151,9 @@ export class DBOperations implements IDBOperations {
     const jobLogData = await jobLogsRepository.find({
       where: {
         job_id: job_id,
-        ...(incident_type && { incident_type: incident_type }),
-        ...(start_date && { start_date: start_date }),
+        ...(device_id && { device_id }),
+        ...(incident_type && { incident_type }),
+        ...(start_date && { start_date }),
       },
     });
     return jobLogData;

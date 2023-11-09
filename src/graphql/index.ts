@@ -6,6 +6,8 @@ import { jobLogQueries } from "./Joblog/joblog.resolver";
 import { joblogTypeDefs } from "./Joblog/joblog.typedef";
 import { jobMutations, jobQueries } from "./Job/job.resolver";
 import { jobTypeDefs } from "./Job/job.typedef";
+import { deviceLogQueries } from "./DeviceLog/deviceLog.resolver";
+import { devicelogTypeDefs } from "./DeviceLog/deviceLog.typedef";
 
 export const resolvers = {
   Query: {
@@ -13,6 +15,7 @@ export const resolvers = {
     ...networkQueries,
     ...jobLogQueries,
     ...jobQueries,
+    ...deviceLogQueries,
   },
 
   Mutation: {
@@ -25,4 +28,5 @@ export const typeDefs =
   deviceTypeDefs +
   networkTypeDefs +
   joblogTypeDefs +
-  jobTypeDefs;
+  jobTypeDefs +
+  devicelogTypeDefs;
