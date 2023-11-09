@@ -9,7 +9,7 @@ import callEvent from "./deviceEvent";
 
 export async function updateJobStatuses() {
   try {
-    callEvent()
+    // callEvent() TODO: Enable while actual Demo
     const ongoingJobs: any = await jobRepository.find({
       where: {
         status: JobStatus.PRINTING,
@@ -52,8 +52,8 @@ export async function updateJobStatuses() {
           device_id: job.device_id,
           status: DeviceStatus.IDLE,
           occurred_at: new Date(),
-          change_description: statusDescMap.IDLE ?? "NA"
-        })
+          change_description: statusDescMap.IDLE ?? "NA",
+        });
 
         await deviceLogRepository.save(deviceLogToUpdate);
 

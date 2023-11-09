@@ -1,13 +1,13 @@
-export const deviceTypeDefs = `
- type DeviceLog {
+export const devicelogTypeDefs = `
+ type Devicelog {
     log_id: String!
     device_id: String!
-    occured_at: String!
+    occurred_at: String!
     status: String!
     change_description: String! 
   }
 
   type Query {
-    getDeviceLogsData(filterObject: JSON!): [DeviceLog]
+    getDevicelogsData(filterObject: JSON!): [Devicelog]
   }
 `;
