@@ -52,6 +52,9 @@ export class Device {
   @Column()
   printing_time: number;
 
+  @Column()
+  device_info: string;
+
   // @OneToMany(() => Job, (job) => job.device)
   // jobs: Relation<Job[]>;
 
