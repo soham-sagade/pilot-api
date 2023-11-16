@@ -12,4 +12,5 @@ export type Device = {
   available_material: number;
   humidity: number;
   printing_time: number;
+  device_info: string;
 };

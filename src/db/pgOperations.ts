@@ -201,6 +201,7 @@ export class DBOperations implements IDBOperations {
         network_id,
       },
     });
+    console.log(deviceData);
     return deviceData;
   }
 
