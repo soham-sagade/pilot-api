@@ -33,7 +33,7 @@ export interface IDBOperations {
     start_date: string,
     end_date: string,
     status: string,
-    filePath: string
+    filepath: string
   ): Promise<Job>;
   getJobLogData(
     device_id: number,
@@ -99,7 +99,7 @@ export class DBOperations implements IDBOperations {
     start_date: string,
     end_date: string,
     status: string,
-    filePath: string
+    filepath: string
   ): Promise<Job> {
     try {
       const createdJob: Job = jobRepository.create({
@@ -108,7 +108,7 @@ export class DBOperations implements IDBOperations {
         start_date: new Date(),
         end_date: null,
         status,
-        filepath: filePath,
+        filepath,
       });
       await jobRepository.save(createdJob);
 

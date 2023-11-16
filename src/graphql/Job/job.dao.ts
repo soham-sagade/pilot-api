@@ -24,9 +24,9 @@ export class JobDao implements IJobDao {
         start_date,
         end_date,
         status,
-        file_path,
+        filepath,
       }: Record<string, any> = job_data;
-      if (!user_id || !device_id || !status || !file_path)
+      if (!user_id || !device_id || !status || !filepath)
         return Promise.reject({ error: "Please provide all mandatory fields" });
       return this.pg.createJob(
         user_id,
@@ -34,7 +34,7 @@ export class JobDao implements IJobDao {
         start_date,
         end_date,
         status,
-        file_path
+        filepath
       );
     } catch (error) {
       console.log(error);

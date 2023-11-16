@@ -12,7 +12,7 @@ import "dotenv/config";
 import validateUser from "./src/middlewares/validateUser";
 import { updateJobStatuses } from "./src/scripts/polling";
 
-const port: number | string = process.env.PORT || 3001;
+const port: number | string = process.env.PORT || 8080;
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -37,5 +37,5 @@ httpServer.listen({ port }, () =>
 );
 
 setInterval(() => {
-  updateJobStatuses();
+  //updateJobStatuses();
 }, 30000);
