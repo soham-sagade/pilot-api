@@ -5,6 +5,7 @@ export const jobTypeDefs = `
     user_id: Int!
     start_date: String!
     status: String!
+    filepath: String!
   }
 
   type Query {

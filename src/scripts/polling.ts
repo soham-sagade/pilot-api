@@ -30,10 +30,14 @@ export async function updateJobStatuses() {
       const currentTime = Math.floor(new Date().getTime() / 1000);
       const devicePrintingTime = deviceForJob.printing_time;
 
-      if (currentTime - startTime + 5 >= devicePrintingTime) {
+      if (currentTime + 100000000000 - startTime  >= devicePrintingTime) {
         const jobToUpdate = await jobRepository.findOneBy({
           job_id: job.job_id,
         });
+        if(jobToUpdate.status==='PSD')
+        {
+          return;
+        }
         jobToUpdate.status = JobStatus.COMPLETED;
         jobToUpdate.end_date = new Date();
         await jobRepository.save(jobToUpdate);
